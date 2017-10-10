@@ -1,0 +1,58 @@
+import csv
+
+list1=[]
+list2=[]
+list3=[]
+list4=[]
+
+def get_data(path):
+    with open('lista_3.csv', newline='') as f:
+        reader = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
+        for row in reader:
+            store=row[0]
+            date_m=row[1]
+            temperature=row[2]
+            humidity=row[3]
+
+            
+            list1.append(store)
+            list2.append(date_m)
+            list3.append(temperature)
+            list4.append(humidity)
+
+        print(list1)
+        print(list2)
+    return()
+def enter_data(path):
+    while True:
+        store=input("Nr magazynu:  ")
+        date_m=input("Data pomiaru: ")
+        temperature=input("Temperatura: ")
+        humidity=str(input("Wilgotność %: "))
+        list1.append(store)
+        list2.append(date_m)
+        list3.append(temperature)
+        list4.append(humidity)
+        if input("Kontynuować: ")== "Tak":
+            continue
+        else:
+            break
+    print(list1)
+    with open(path, 'r+',newline='' ) as csvfile: #may use format 'w'
+        writer = csv.writer(csvfile, delimiter=';')
+        #writer.writerow(['name', 'id_worker','date'])
+        for item1,item2, item3, item4 in zip(list1,list2,list3,list4):
+            writer.writerow([item1, item2, item3, item4])
+    return()
+
+#get_data('lista_3.csv')
+#enter_data('lista_3.csv')
+
+def main(path):
+    get_data(path)
+    enter_data(path)
+
+    return()
+
+if __name__ == '__main__':
+    main('lista_3.csv')
